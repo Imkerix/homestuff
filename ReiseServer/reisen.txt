@@ -1,0 +1,4 @@
+Berlin;20
+Paris;20
+Moskau;20
+Dönerbude;20
