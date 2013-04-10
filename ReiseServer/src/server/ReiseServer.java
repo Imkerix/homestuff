@@ -7,10 +7,6 @@ import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-
-import javax.crypto.AEADBadTagException;
-
 import client.ReiseClient;
 
 /**
@@ -73,10 +69,6 @@ public class ReiseServer {
 							}
 							if(whatshellido.equals("clientIsGoingDown")){
 								clientActive = false;
-								if(out != null)
-									out.close();
-								if(in != null)
-									in.close();
 								clientserver.close();	
 								System.out.println("Client "+clientserver.getInetAddress()+" disconnected!");
 							}
@@ -148,56 +140,43 @@ public class ReiseServer {
 		out = new PrintWriter(client.getOutputStream(), true);
 		
 		
-		//Anfang der Antwort an den Client	
-		boolean isOK = false;						
-		for(String s : reiseContainer.getReiseziele()){
-			if(s.equalsIgnoreCase(reiseziel)){
-				isOK = true;
+		//Anfang der ersten Antwort an den Client	
+			boolean isOK = false;						
+			for(String s : reiseContainer.getReiseziele()){
+				if(s.equalsIgnoreCase(reiseziel)){
+					isOK = true;
+				}
+			}						
+	
+			if(isOK){ //ist das Reiseziel vorhanden?									
+				if(reiseContainer.getReise(reiseziel).freiePlaetze()>=anzahl){ //ist in der Reise noch platz?
+					out.println("+OK Namen der Teilnehmer Eingeben...");
+				}
+				else{ // Das Reiseziel existiert zwar hat aber keinen platz mehr
+					out.println("-ERR Reservierung nicht möglich"); //Kein Platz								
+					isOK = false;
+				}	
 			}
-		}						
-
-		if(isOK){ //ist das Reiseziel vorhanden?									
-			if(reiseContainer.getReise(reiseziel).freiePlaetze()>=anzahl){ //ist in der Reise noch platz?
-				out.println("+OK Namen der Teilnehmer Eingeben...");
-				//isOK = true;
+			else{ // Das Reiseziel ist nicht vorhanden
+				out.println("-ERR Unbekanntes Reiseziel"); //Das Reise ziel ist nicht vorhanden
+			}
+		// Ende der ersten Antwort an den Client	
+		//Anfang der zweiten Antwort an den Client	
+			if(isOK){ //Wenn Komunikation Abgebrochen ueberspringen	
+				
+				// Warten auf Teilnehmer Namen und sofortiges weiterreichen an die Reise				
+					for(int i = 0; i<anzahl; i++){
+						reiseContainer.getReise(reiseziel).hinzufuegenTeilnehmer(in.readLine());
+					}					 	
+				// Namen der Teilnehmer sind da	und wurden weitergereicht		
+				//Bestaetigung schiken
+					out.println("+OK Reservierung erfolgt");
+				//Ende Bestaetigung	
 			}
 			else{
-				out.println("-ERR Reservierung nicht möglich"); //Kein Platz								
-				isOK = false;
-			}	
-		}
-		else{
-			out.println("-ERR Unbekanntes Reiseziel"); //Das Reise ziel ist nicht vorhanden
-			//isOK = false;
-		}
-
-		// Ende der Antwort an den Client	
-		// Warten auf Teilnehmer Namen und sofortiges weiterreichen an die Reise				
-		if(isOK){
-			
-			ArrayList<String> all = new ArrayList<String>();
-			String next = "";
-			for(int i = 0; i<anzahl; i++){
-				next = in.readLine();
-				all.add(next);
+				out.println("Ihre Buchung ist fehlgeschalgen!");
 			}
-			for(String s : all){
-				reiseContainer.getReise(reiseziel).hinzufuegenTeilnehmer(s);
-			}
-			
-			
-//			for(String s = in.readLine(); s != null; reiseContainer.getReise(reiseziel).hinzufuegenTeilnehmer(s)){	
-//			}
-								 	
-			// Namen der Teilnehmer sind da	und wurden weitergereicht		
-
-			//Bestaetigung schiken
-			out.println("+OK Reservierung erfolgt");
-			//Ende Bestaetigung	
-		}
-		else{
-			out.println("Ihre Buchung ist fehlgeschalgen!");
-		}
+		// Ende der zweiten Antwort an den Client
 	}
 
 }
