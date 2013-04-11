@@ -27,7 +27,7 @@ public class ReiseServer {
 	 * possible with threads. In the contained overwritten run method the
 	 * {@link Constructor} will check what the {@link ReiseClient} wants to do.
 	 * Multiple requests are possible. The run method simply does one thing
-	 * after the other, untill the client sends "clientIsGoingDown" what causes
+	 * after the other, until the client sends "clientIsGoingDown" what causes
 	 * the end of the connection.
 	 * 
 	 * @param port an Integer that stands for the Port the Server will be available at (don&#180;t forget to configure your firewall).                      
@@ -64,8 +64,13 @@ public class ReiseServer {
 								}	
 							}
 							if(whatshellido.equals("getFreiePlaetze")){
-								String reiseziel = in.readLine();		
-								out.print(getFreiePlaetze(reiseziel));
+								String reiseziel = in.readLine();	
+								
+								for (String s : reiseContainer.getReiseziele()) {
+									if (s.equalsIgnoreCase(reiseziel)) {
+										out.println(reiseContainer.getReise(reiseziel).freiePlaetze());
+									} 
+								}
 							}
 							if(whatshellido.equals("clientIsGoingDown")){
 								clientActive = false;
@@ -95,28 +100,6 @@ public class ReiseServer {
 	});
 
 
-	}
-
-	/**
-	 * Gets free places in a {@link Reise} object. <br>
-	 * (Is only out sourced code from {@link ReiseServer.ReiseServer(int port}).
-	 * 
-	 * @param reiseziel a String that is used to find a inherent {@link Reise}.          
-	 * @return an Integer that represents the amount of avilable places in the {@link Reise} object that matches to {@link reiseziel}.       
-	 */
-	public  int getFreiePlaetze(String reiseziel) {
-
-		int freiePlaetze = 0;
-
-		
-			for (String s : reiseContainer.getReiseziele()) {
-				if (s.equalsIgnoreCase(reiseziel)) {
-					//	System.out.println(reiseContainer.getReise(reiseziel).freiePlaetze());
-					freiePlaetze = reiseContainer.getReise(reiseziel).freiePlaetze();
-				} 
-			}
-			
-		return freiePlaetze;
 	}
 
 	/**

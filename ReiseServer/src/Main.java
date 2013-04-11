@@ -96,10 +96,10 @@ public class Main {
 				try {
 					MyReiseClient.buchen("paris", array );
 					
-//					for(String s : MyReiseClient.getReiseziel()){
+//					for(String s : MyReiseClient.getReiseziele()){
 //						System.out.println(s);
 //					}
-//					System.out.println(MyReiseClient.getFreiePlaetze("dönerbude"));
+//					System.out.println(MyReiseClient.getFreiePlaetze("moskau"));
 					MyReiseClient.abmelden();
 				} catch (IOException e) {
 					e.printStackTrace();

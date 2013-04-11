@@ -1,4 +1,4 @@
-Berlin;20
-Paris;20
-Moskau;20
+Berlin;203
+Paris;700
+Moskau;25
 Dönerbude;20
