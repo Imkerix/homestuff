@@ -85,8 +85,8 @@ public class ReiseContainer {
 	 */
 	public void laden() throws IOException {
 		
-		@SuppressWarnings("resource")
-		Scanner sc =  new Scanner(new File(dateiort)).useDelimiter(System.getProperty("line.separator")); 
+		Scanner sc =  new Scanner(new File(dateiort));
+		sc.useDelimiter(System.getProperty("line.separator")); 
 		while(sc.hasNext()){
 			String line = sc.next();
 			if(line.equals("")){	
