@@ -7,8 +7,8 @@ package server;
  */
 public class Teilnehmer {
 	
-	public Teilnehmer naechster;
-	public String name;
+	public Teilnehmer naechster; /** Points at another {@link Teilnehmer} object or at null*/
+	public String name; /** The name of the traveler represented by {@link Teilnehmer}*/
 
 	/**
 	 * Writes the given parameters values to the actual attributes.

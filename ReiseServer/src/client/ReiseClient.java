@@ -14,10 +14,10 @@ import server.ReiseServer;
  */
 public class ReiseClient {
 	
-	private Socket socket; /** */
-	private PrintWriter out; /** Used to send Strings and objects through the socket to the server*/
-	private BufferedReader in; /**  */
-	//private ObjectInputStream ois; /** */
+	private Socket socket; /** Endpoint on the client machine*/
+	private PrintWriter out; /** Sends Strings and objects through the socket to the server*/
+	private BufferedReader in; /** Reads answerers from the {@link ReiseServer} */
+	
 
 	/**
 	 * Sends a String to the connected {@link ReiseServer} which commands to close the connected socket.
@@ -151,8 +151,7 @@ public class ReiseClient {
 	 */
 	public  boolean verbinden(String server, int port) {
 		try {
-			socket = new Socket(server, port);
-			
+			socket = new Socket(server, port);	
 			return true;
 		} catch (IOException e) {
 

@@ -17,10 +17,10 @@ import client.ReiseClient;
  * 
  */
 public class ReiseServer {
-	private ServerSocket serversocket = null;
-	private ReiseContainer reiseContainer = new ReiseContainer();
-	private PrintWriter out;
-	private BufferedReader in;
+	private ServerSocket serversocket = null; /** Endpoint on the Server*/
+	private ReiseContainer reiseContainer = new ReiseContainer(); /** Manages journeys and travelers*/
+	private PrintWriter out; /** Sends information to connected {@link ReiseClient}s}*/
+	private BufferedReader in; /** Reads answeres form the {@link ReiseClient} */
 
 	/**
 	 * Creates a new {@link ServerSocket} and makes multiple client access
