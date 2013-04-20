@@ -21,6 +21,7 @@ public class ReiseServer {
 	private ReiseContainer reiseContainer = new ReiseContainer(); /** Manages journeys and travelers*/
 	private PrintWriter out; /** Sends information to connected {@link ReiseClient}s}*/
 	private BufferedReader in; /** Reads answeres form the {@link ReiseClient} */
+	private UserManagement users = new UserManagement("users.txt");
 
 	/**
 	 * Creates a new {@link ServerSocket} and makes multiple client access
@@ -45,39 +46,45 @@ public class ReiseServer {
 						in = new BufferedReader(new InputStreamReader(clientserver.getInputStream()));
 						out = new PrintWriter(clientserver.getOutputStream(), true);
 
-						boolean clientActive = true;
-						while (clientActive) {
-							String whatshellido = in.readLine();							
-
-							if(whatshellido.equals("buchen")){
-
-								String reiseziel = in.readLine();
-								int mitfahrer = Integer.parseInt(in.readLine());										
-								bucheReise(clientserver, reiseziel, mitfahrer);
-
-							}
-							if(whatshellido.equals("getReiseziele")){
-
-								out.println(reiseContainer.getReiseziele().length); //laenge des String[] in Reiseclient
-								for(String s : reiseContainer.getReiseziele()){
-									out.println(s);		
-								}	
-							}
-							if(whatshellido.equals("getFreiePlaetze")){
-								String reiseziel = in.readLine();	
+						if(users.checkauthentification(in.readLine(), in.readLine())){
+							boolean clientActive = true;
+							while (clientActive) {
+								String whatshellido = in.readLine();							
 								
-								for (String s : reiseContainer.getReiseziele()) {
-									if (s.equalsIgnoreCase(reiseziel)) {
-										out.println(reiseContainer.getReise(reiseziel).freiePlaetze());
-									} 
+								if(whatshellido.equals("buchen")){
+									
+									String reiseziel = in.readLine();
+									int mitfahrer = Integer.parseInt(in.readLine());										
+									bucheReise(clientserver, reiseziel, mitfahrer);
+									
 								}
+								if(whatshellido.equals("getReiseziele")){
+									
+									out.println(reiseContainer.getReiseziele().length); //laenge des String[] in Reiseclient
+									for(String s : reiseContainer.getReiseziele()){
+										out.println(s);		
+									}	
+								}
+								if(whatshellido.equals("getFreiePlaetze")){
+									String reiseziel = in.readLine();	
+									
+									for (String s : reiseContainer.getReiseziele()) {
+										if (s.equalsIgnoreCase(reiseziel)) {
+											out.println(reiseContainer.getReise(reiseziel).freiePlaetze());
+										} 
+									}
+								}
+								if(whatshellido.equals("clientIsGoingDown")){
+									clientActive = false;
+									clientserver.close();	
+									System.out.println("Client "+clientserver.getInetAddress()+" disconnected!");
+								}
+								
 							}
-							if(whatshellido.equals("clientIsGoingDown")){
-								clientActive = false;
-								clientserver.close();	
-								System.out.println("Client "+clientserver.getInetAddress()+" disconnected!");
-							}
-
+							
+						}
+						else{
+							out.println("Authentification failure");
 						}
 					}catch(IOException e){
 						e.printStackTrace();
@@ -92,7 +99,8 @@ public class ReiseServer {
 			try {
 				
 			reiseContainer.speichern();
-					
+			users.serialize();
+			
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -25,7 +25,7 @@ public class UserManagement {
 		}
 	}
 	
-	private boolean adduser(String p_username, String p_passwd){
+	public boolean adduser(String p_username, String p_passwd){
 		if (p_username != null && p_passwd != null) {  //nur
 			users.put(p_username, p_passwd);	
 			return true;					
@@ -37,7 +37,7 @@ public class UserManagement {
 		
 	}
 	
-	private boolean deluser(String p_username){
+	public boolean deluser(String p_username){
 		if(users.containsKey(p_username)){
 			users.remove(p_username);
 			return true;
@@ -46,7 +46,7 @@ public class UserManagement {
 		}
 		
 	}
-	private boolean checkauthentification(String p_claimedusername, String p_claimedpasswd){
+	public boolean checkauthentification(String p_claimedusername, String p_claimedpasswd){
 		if(users.containsKey(p_claimedusername) &&  users.get(p_claimedusername).equals(p_claimedpasswd)){
 			return true;
 		}else{
@@ -55,7 +55,7 @@ public class UserManagement {
 		
 	}
 	
-    private Object deserialize() {
+    public Object deserialize() {
     	Object Kommt = null;
 		try {
 			ObjectInputStream o = new ObjectInputStream(new FileInputStream(userfile));
@@ -72,7 +72,7 @@ public class UserManagement {
 	}
 	
     
-    private void serialize() {
+    public void serialize() {
 		try {
 			ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(userfile));
 			o.writeObject(users);
