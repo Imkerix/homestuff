@@ -13,16 +13,48 @@ public class UserManagement {
 	private Hashtable<String,String> users; 
 	private File userfile;
 	
+	
 	UserManagement(String p_userfile){
 		
 		userfile = new File(p_userfile);	
+		
 		if(userfile.toString().isEmpty()){
 			users = new Hashtable<String,String>();
 		}else{
 			users = (Hashtable<String, String>) deserialize();			
 		}
 	}
-
+	
+	private boolean adduser(String p_username, String p_passwd){
+		if (p_username != null && p_passwd != null) {  //nur
+			users.put(p_username, p_passwd);	
+			return true;					
+		}
+		else{
+			System.err.println("add methode wurde verbotenerweise mit null als parameter genervt!");
+			return false;
+		}
+		
+	}
+	
+	private boolean deluser(String p_username){
+		if(users.containsKey(p_username)){
+			users.remove(p_username);
+			return true;
+		}else{
+			return false;			
+		}
+		
+	}
+	private boolean checkauthentification(String p_claimedusername, String p_claimedpasswd){
+		if(users.containsKey(p_claimedusername) &&  users.get(p_claimedusername).equals(p_claimedpasswd)){
+			return true;
+		}else{
+			return false;			
+		}
+		
+	}
+	
     private Object deserialize() {
     	Object Kommt = null;
 		try {
