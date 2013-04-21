@@ -82,10 +82,15 @@ public class ReiseServer {
 									String passwd_to_set = in.readLine();
 						
 									if(users.adduser(username_to_set, passwd_to_set)){
+										out.println("+");
 										out.println(username_to_set);
 										out.println(passwd_to_set);
 										users.serialize();
-									}						
+									}
+									else{
+										out.println("-");
+									}
+									
 								}
 								if(whatshellido.equals("clientIsGoingDown")){
 									clientActive = false;
@@ -110,7 +115,7 @@ public class ReiseServer {
 
 		public void run() {
 			try {
-				
+			users.serialize();	
 			reiseContainer.speichern();
 			
 			} catch (IOException e) {

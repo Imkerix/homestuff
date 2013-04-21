@@ -129,8 +129,15 @@ public class ReiseClient {
 				out.println(username_to_set);
 				out.println(passwd_to_set);
 				
-				System.out.println("Account erzeugt User == "+ in.readLine()+" Passphrase == "+ in.readLine());
-				return true;
+				String erfolg = in.readLine();
+				if(erfolg.equals("+")){
+					System.out.println("Account erzeugt User == "+ in.readLine()+" Passphrase == "+ in.readLine());
+					return true;					
+				}
+				else{
+					System.err.println("Der Account scheint bereits vergeben zu sein bitte suchen sie sich einen anderen Usernamen");
+					return false;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;

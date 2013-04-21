@@ -6,11 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Hashtable;
+import java.util.ArrayList; 
+import java.util.List;
 
 public class UserManagement {
 	
-	private Hashtable<String,String> users; 
+	private List<User> users; 
 	private File userfile;
 	
 	
@@ -19,41 +20,48 @@ public class UserManagement {
 		userfile = new File(p_userfile);	
 		
 		if(userfile.length() == 0){
-			users = new Hashtable<String,String>();
-			users.put("gast", "");
+			users = new ArrayList<User>();
+			users.add(new User("gast", ""));
 		}else{
-			users = (Hashtable<String, String>) deserialize();			
+			users = (List<User>) deserialize();			
 		}
 	}
 	
 	public boolean adduser(String p_username, String p_passwd){
-		if (p_username != null && p_passwd != null) {  
-			users.put(p_username, p_passwd);	
-			return true;					
-		}
-		else{
-			System.err.println("add methode wurde verbotenerweise mit null als parameter genervt!");
-			return false;
-		}
+		boolean isThere = false; 
 		
+			for(User i : users){
+				if(i.username.equals(p_username) && i.passwd.equals(p_passwd)){
+					isThere = true;						
+				}
+			}
+			if(isThere == false){
+				users.add(new User(p_username, p_passwd));	
+				return true;
+			}else{
+				System.err.println("add methode wurde verbotenerweise mit null oder einem Exitierenden account als parameter genervt!");
+				System.err.println("Das ist >> BÖSE <<");
+				return false;
+			}	
 	}
 	
 	public boolean deluser(String p_username){
-		if(users.containsKey(p_username)){
-			users.remove(p_username);
-			return true;
-		}else{
-			return false;			
+		for(User u : users){
+			if(u.username.equals(p_username)){
+				users.remove(u);
+				return true;
+			}			
 		}
+		return false;
 		
 	}
 	public boolean checkauthentification(String p_claimedusername, String p_claimedpasswd){
-		if(users.containsKey(p_claimedusername) &&  users.get(p_claimedusername).equals(p_claimedpasswd)){
-			return true;
-		}else{
-			return false;			
+		for(User i : users){
+			if(i.username.equals(p_claimedusername) &&  i.passwd.equals(p_claimedpasswd)){
+				return true;
+			}
 		}
-		
+		return false;
 	}
 	
     public Object deserialize() {
