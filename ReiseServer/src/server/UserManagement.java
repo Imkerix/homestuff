@@ -31,7 +31,7 @@ public class UserManagement {
 		boolean isThere = false; 
 		
 			for(User i : users){
-				if(i.username.equals(p_username) && i.passwd.equals(p_passwd)){
+				if(i.username.equals(p_username)){
 					isThere = true;						
 				}
 			}
