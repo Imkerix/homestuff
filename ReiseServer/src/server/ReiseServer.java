@@ -45,7 +45,8 @@ public class ReiseServer {
 						System.out.println("Client "+clientserver.getInetAddress()+" connected! "+clientserver.getPort());
 						in = new BufferedReader(new InputStreamReader(clientserver.getInputStream()));
 						out = new PrintWriter(clientserver.getOutputStream(), true);
-
+						
+						
 						if(users.checkauthentification(in.readLine(), in.readLine())){
 							boolean clientActive = true;
 							while (clientActive) {
@@ -73,6 +74,10 @@ public class ReiseServer {
 											out.println(reiseContainer.getReise(reiseziel).freiePlaetze());
 										} 
 									}
+								}
+								if(whatshellido.equals("newUser")){
+									users.adduser(in.readLine(), in.readLine());
+									
 								}
 								if(whatshellido.equals("clientIsGoingDown")){
 									clientActive = false;

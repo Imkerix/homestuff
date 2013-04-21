@@ -20,6 +20,7 @@ public class UserManagement {
 		
 		if(userfile.toString().isEmpty()){
 			users = new Hashtable<String,String>();
+			users.put("gast", "");
 		}else{
 			users = (Hashtable<String, String>) deserialize();			
 		}

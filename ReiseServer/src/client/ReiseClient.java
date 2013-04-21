@@ -17,8 +17,18 @@ public class ReiseClient {
 	private Socket socket; /** Endpoint on the client machine*/
 	private PrintWriter out; /** Sends Strings and objects through the socket to the server*/
 	private BufferedReader in; /** Reads answerers from the {@link ReiseServer} */
+	private String username = null;
+	private String passwd = null;
 	
-
+	
+	ReiseClient(){
+		
+	}
+	ReiseClient(String p_username, String p_passwd){
+		username = p_username;
+		passwd = p_passwd;
+	}
+	
 	/**
 	 * Sends a String to the connected {@link ReiseServer} which commands to close the connected socket.
 	 * @return a boolean that represents the success of the method: if true = method successful if false = method failed.
@@ -152,6 +162,10 @@ public class ReiseClient {
 	public  boolean verbinden(String server, int port) {
 		try {
 			socket = new Socket(server, port);	
+			if(username != null && passwd != null){
+				out.println(username);
+				out.println(passwd);
+			}
 			return true;
 		} catch (IOException e) {
 
