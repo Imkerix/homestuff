@@ -46,8 +46,10 @@ public class ReiseServer {
 						in = new BufferedReader(new InputStreamReader(clientserver.getInputStream()));
 						out = new PrintWriter(clientserver.getOutputStream(), true);
 						
+						String username = in.readLine();
+						String passwd = in.readLine();
 						
-						if(users.checkauthentification(in.readLine(), in.readLine())){
+						if(users.checkauthentification(username, passwd)){
 							boolean clientActive = true;
 							while (clientActive) {
 								String whatshellido = in.readLine();							

@@ -21,10 +21,10 @@ public class ReiseClient {
 	private String passwd = null;
 	
 	
-	ReiseClient(){
+	public ReiseClient(){
 		
 	}
-	ReiseClient(String p_username, String p_passwd){
+	public ReiseClient(String p_username, String p_passwd){
 		username = p_username;
 		passwd = p_passwd;
 	}
@@ -59,8 +59,6 @@ public class ReiseClient {
 	 */
 	public  boolean buchen(String reiseziel, String[] teilnehmer) throws IOException {
 		
-		out = new PrintWriter(socket.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			boolean isOK = false;
 		//Gebe buchungs Wunsch an
 				out.println("buchen");
@@ -117,8 +115,6 @@ public class ReiseClient {
 	 * @throws IOException
 	 */
 	public int getFreiePlaetze(String reiseziel) throws IOException {
-		out = new PrintWriter(socket.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
 		out.println("getFreiePlaetze");
 		out.println(reiseziel);
@@ -161,10 +157,18 @@ public class ReiseClient {
 	 */
 	public  boolean verbinden(String server, int port) {
 		try {
-			socket = new Socket(server, port);	
+			socket = new Socket(server, port);
+			
+			out = new PrintWriter(socket.getOutputStream(), true);
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
 			if(username != null && passwd != null){
 				out.println(username);
 				out.println(passwd);
+			}
+			else{
+				out.println("gast");
+				out.println("");
 			}
 			return true;
 		} catch (IOException e) {

@@ -18,7 +18,7 @@ public class UserManagement {
 		
 		userfile = new File(p_userfile);	
 		
-		if(userfile.toString().isEmpty()){
+		if(userfile.length() == 0){
 			users = new Hashtable<String,String>();
 			users.put("gast", "");
 		}else{

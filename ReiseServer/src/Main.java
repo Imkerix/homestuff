@@ -46,68 +46,68 @@ public class Main {
 		};
 		clientThread0.start();
 		
-		Thread clientThread1 =  new Thread() { //A Client Thread
-			public void run() { 
-				ReiseClient MyReiseClient = new ReiseClient();
-				MyReiseClient.verbinden("127.0.0.1", 12343);
-				String[] array = new String[2];
-				array[0]= "Mutter Made";
-				array[1]= "Madenkind";
-				
-				try {
-					MyReiseClient.buchen("dönerbude", array );
-					MyReiseClient.abmelden();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-			}
-		};
-		clientThread1.start();
-		
-		Thread clientThread2 =  new Thread() { //A Client Thread
-			public void run() { 
-				ReiseClient MyReiseClient = new ReiseClient();
-				MyReiseClient.verbinden("127.0.0.1", 12343);
-				String[] array = new String[2];
-				array[0]= "Ein Druide";
-				array[1]= "Sein Rabe";
-				
-				try {
-					MyReiseClient.buchen("moskau", array );
-					MyReiseClient.abmelden();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-			}
-		};
-		clientThread2.start();
-			
-		Thread clientThread3 =  new Thread() { //A Client Thread
-			public void run(){
-				ReiseClient MyReiseClient = new ReiseClient();
-				MyReiseClient.verbinden("127.0.0.1", 12343);
-				String[] array = new String[3];
-				array[0]= "Herr Müller Lübenscheid";
-				array[1]= "Frau Dr. Klöbner";
-				array[2]= "Ihr Kind";
-				
-				try {
-					MyReiseClient.buchen("paris", array );
-					
-//					for(String s : MyReiseClient.getReiseziele()){
-//						System.out.println(s);
-//					}
-//					System.out.println(MyReiseClient.getFreiePlaetze("moskau"));
-					MyReiseClient.abmelden();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				}
-			
-		};	
-		clientThread3.start();
+//		Thread clientThread1 =  new Thread() { //A Client Thread
+//			public void run() { 
+//				ReiseClient MyReiseClient = new ReiseClient();
+//				MyReiseClient.verbinden("127.0.0.1", 12343);
+//				String[] array = new String[2];
+//				array[0]= "Mutter Made";
+//				array[1]= "Madenkind";
+//				
+//				try {
+//					MyReiseClient.buchen("dönerbude", array );
+//					MyReiseClient.abmelden();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				
+//			}
+//		};
+//		clientThread1.start();
+//		
+//		Thread clientThread2 =  new Thread() { //A Client Thread
+//			public void run() { 
+//				ReiseClient MyReiseClient = new ReiseClient();
+//				MyReiseClient.verbinden("127.0.0.1", 12343);
+//				String[] array = new String[2];
+//				array[0]= "Ein Druide";
+//				array[1]= "Sein Rabe";
+//				
+//				try {
+//					MyReiseClient.buchen("moskau", array );
+//					MyReiseClient.abmelden();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				
+//			}
+//		};
+//		clientThread2.start();
+//			
+//		Thread clientThread3 =  new Thread() { //A Client Thread
+//			public void run(){
+//				ReiseClient MyReiseClient = new ReiseClient();
+//				MyReiseClient.verbinden("127.0.0.1", 12343);
+//				String[] array = new String[3];
+//				array[0]= "Herr Müller Lübenscheid";
+//				array[1]= "Frau Dr. Klöbner";
+//				array[2]= "Ihr Kind";
+//				
+//				try {
+//					MyReiseClient.buchen("paris", array );
+//					
+////					for(String s : MyReiseClient.getReiseziele()){
+////						System.out.println(s);
+////					}
+////					System.out.println(MyReiseClient.getFreiePlaetze("moskau"));
+//					MyReiseClient.abmelden();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				}
+//			
+//		};	
+//		clientThread3.start();
 				
 	//// Client Part //////// Client Part //////// Client Part //////// Client Part ////		
 
