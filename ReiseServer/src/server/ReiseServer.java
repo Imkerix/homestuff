@@ -77,9 +77,15 @@ public class ReiseServer {
 										} 
 									}
 								}
-								if(whatshellido.equals("newUser")){
-									users.adduser(in.readLine(), in.readLine());
-									
+								if(whatshellido.equals("useradd")){
+									String username_to_set = in.readLine();
+									String passwd_to_set = in.readLine();
+						
+									if(users.adduser(username_to_set, passwd_to_set)){
+										out.println(username_to_set);
+										out.println(passwd_to_set);
+										users.serialize();
+									}						
 								}
 								if(whatshellido.equals("clientIsGoingDown")){
 									clientActive = false;
@@ -106,7 +112,6 @@ public class ReiseServer {
 			try {
 				
 			reiseContainer.speichern();
-			users.serialize();
 			
 			} catch (IOException e) {
 				e.printStackTrace();

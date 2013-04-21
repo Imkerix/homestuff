@@ -27,7 +27,7 @@ public class Main {
 		Thread.sleep(500);
 //// Client Part //////// Client Part //////// Client Part //////// Client Part ////		
 		
-		Thread clientThread0 =  new Thread() { //A Client Thread
+		Thread clientThread0 =  new Thread() { //A Client Thread 
 			public void run() { 
 				ReiseClient MyReiseClient = new ReiseClient();
 				MyReiseClient.verbinden("127.0.0.1", 12343);
@@ -36,6 +36,7 @@ public class Main {
 				array[1]= "Drohn";
 				
 				try {
+					MyReiseClient.useradd("Erik","linux"); //Creates new user
 					MyReiseClient.buchen("Berlin", array );
 					MyReiseClient.abmelden();
 				} catch (IOException e) {
@@ -46,24 +47,24 @@ public class Main {
 		};
 		clientThread0.start();
 		
-//		Thread clientThread1 =  new Thread() { //A Client Thread
-//			public void run() { 
-//				ReiseClient MyReiseClient = new ReiseClient();
-//				MyReiseClient.verbinden("127.0.0.1", 12343);
-//				String[] array = new String[2];
-//				array[0]= "Mutter Made";
-//				array[1]= "Madenkind";
-//				
-//				try {
-//					MyReiseClient.buchen("dönerbude", array );
-//					MyReiseClient.abmelden();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				
-//			}
-//		};
-//		clientThread1.start();
+		Thread clientThread1 =  new Thread() { //A Client Thread
+			public void run() { 
+				ReiseClient MyReiseClient = new ReiseClient("Erik","linux"); //uses new user
+				MyReiseClient.verbinden("127.0.0.1", 12343);
+				String[] array = new String[2];
+				array[0]= "Mutter Made";
+				array[1]= "Madenkind";
+				
+				try {
+					MyReiseClient.buchen("dönerbude", array );
+					MyReiseClient.abmelden();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		};
+		clientThread1.start();
 //		
 //		Thread clientThread2 =  new Thread() { //A Client Thread
 //			public void run() { 

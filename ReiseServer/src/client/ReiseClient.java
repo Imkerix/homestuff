@@ -121,6 +121,25 @@ public class ReiseClient {
 		
 		return Integer.parseInt(in.readLine());
 	}
+	
+	public boolean useradd(String username_to_set, String passwd_to_set){
+		if(username_to_set != null && passwd_to_set != null ){	
+			try {
+				out.println("useradd");
+				out.println(username_to_set);
+				out.println(passwd_to_set);
+				
+				System.out.println("Account erzeugt User == "+ in.readLine()+" Passphrase == "+ in.readLine());
+				return true;
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		else{
+			return false;			
+		}
+	}
 
 	/**
 	 * Returns all travel destinations known by the {@link ReiseServer}.

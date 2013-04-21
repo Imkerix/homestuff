@@ -27,7 +27,7 @@ public class UserManagement {
 	}
 	
 	public boolean adduser(String p_username, String p_passwd){
-		if (p_username != null && p_passwd != null) {  //nur
+		if (p_username != null && p_passwd != null) {  
 			users.put(p_username, p_passwd);	
 			return true;					
 		}
